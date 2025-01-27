@@ -1,5 +1,52 @@
 # Gomboc Gambling Casino
 
+This is the backend for the Gomboc Casino application, built using Node.js, Apollo Server, and Prisma with a SQLite database. It handles user balance, bet placement, and withdrawal logic.
+
+## Prerequisites
+
+Make sure you have the following installed:
+- **Node.js** (LTS version recommended)
+- **npm** (comes with Node.js) or **yarn**
+- **Prisma** CLI (`npx prisma`)
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/uitie/gomboc-casino-konstantin.git
+   cd gomboc-casino-backend
+   ```
+2. Install dependencies: 
+   ```bash
+    npm install
+    ```
+    or
+    yarn install
+
+3. Set up the database:
+   - Create a .env file in the root directory and add the following configuration:
+   DATABASE_URL="file:./dev.db"
+   PORT=4000
+
+4. Apply the database migrations to set up the necessary tables for the user and bets:
+   npx prisma migrate dev --name init
+
+5. Generate the Prisma client:
+   npx prisma generate
+
+## Running the Development Server
+    ```bash
+    npm run dev
+    ```
+## Running the Production Server
+    ```bash
+    npm run start
+    ```
+This will start the Apollo Server on http://localhost:4000.
+Replace 'npm' with 'yarn' if using yarn.
+
+
 ### **Objectives & Logical Flow**
 
 **Objectives:**
@@ -32,7 +79,12 @@
 | **Development Tools**  | npm, ts-node, TypeScript                                   |
 | **Testing**            | Jest                                                       |
 
-## Author: Konstantin Hamilton
+Testing the Application
+
+    Place Bet: Use the placeBet mutation to place a bet on a dice roll.
+    Withdraw: Use the withdraw mutation to withdraw the balance and reset the game (only available if the user has won at least once).
+    Get User Info: Use the user query to check the user's balance and bet history.
+    Get All Bets: Use the bets query to view all bets placed in the game.
 
 Queries and mutations:
 1. Get the User's Information
