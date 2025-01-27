@@ -44,6 +44,7 @@ export const resolvers: Resolvers = {
         });
       }
 
+      // Roll dice
       const result = Math.floor(Math.random() * 6) + 1 === diceNumber ? 'win' : 'lose';
       const betResult = result === 'win' ? amount * 5 : -amount;
 
@@ -71,6 +72,27 @@ export const resolvers: Resolvers = {
         });
       }
 
+      // Reset game if balance reached or dropped below 0
+      if (user.balance <= 0) {
+        console.log('Game Over! User balanced has reached, or dropped below, zero.');
+        const resetMessage = 'Game Over! Resetting...';
+
+        await prisma.user.update({
+          where: { id: 1 },
+          data: {
+            balance: 1000,
+          //  bets: { deleteMany: {} },
+          },
+        });
+        console.log('Game reset to initial state (balance = 1000)');
+
+        return {
+          ...latestBet,
+          timestamp: latestBet.timestamp.toISOString(),
+          message: resetMessage,
+        };
+      }
+
       return {
         ...latestBet,
         timestamp: latestBet.timestamp.toISOString(),
@@ -89,18 +111,25 @@ export const resolvers: Resolvers = {
         });
       }
 
+      // Log before withdrawal
+      console.log(`Withdrawing user with balance: ${user.balance}`);
+      const withdrawalMessage = `Your current balance of ${user.balance} has been withdrawn. Resetting the game.`;
+
       // Reset user balance and clear bet history
       const updatedUser = await prisma.user.update({
         where: { id: user.id },
         data: {
           balance: 0,
-          bets: { deleteMany: {} }, // Clear history
+        // bets: { deleteMany: {} }, // Clear history
         },
         include: { bets: true },
       });
 
+      console.log('User balance after withdrawal:', updatedUser.balance);
+
       return {
         ...updatedUser,
+        message: withdrawalMessage,
         bets: updatedUser.bets.map(bet => ({
           ...bet,
           timestamp: bet.timestamp.toISOString(),

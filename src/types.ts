@@ -2,6 +2,7 @@ export interface User {
   id: number;
   balance: number;
   bets: Bet[];
+  message?: string;
 }
   
 export interface Bet {
@@ -10,6 +11,7 @@ export interface Bet {
   diceNumber: number;
   result: string;
   timestamp: string;
+  message?: string;
 }
 
 export interface Resolvers {

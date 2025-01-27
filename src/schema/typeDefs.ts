@@ -5,6 +5,7 @@ export const typeDefs = gql`
     id: ID!
     balance: Int!
     bets: [Bet!]!
+    message: String
   }
 
   type Bet {
@@ -13,6 +14,7 @@ export const typeDefs = gql`
     diceNumber: Int!
     result: String!
     timestamp: String!
+    message: String
   }
 
   type Query {

@@ -33,3 +33,58 @@
 | **Testing**            | Jest                                                       |
 
 ## Author: Konstantin Hamilton
+
+Queries and mutations:
+1. Get the User's Information
+query {
+  user {
+    id
+    balance
+    bets {
+      id
+      amount
+      diceNumber
+      result
+      timestamp
+    }
+  }
+}
+
+2. Place bet:
+mutation {
+  placeBet(amount: 100, diceNumber: 3) {
+    id
+    amount
+    diceNumber
+    result
+    timestamp
+  }
+}
+
+3. Get all bets:
+query {
+  bets {
+    id
+    amount
+    diceNumber
+    result
+    timestamp
+  }
+}
+
+4. Withdraw
+mutation {
+  withdraw {
+    id
+    balance
+    bets {
+      id
+      amount
+      diceNumber
+      result
+      timestamp
+    }
+    message
+  }
+}
+
