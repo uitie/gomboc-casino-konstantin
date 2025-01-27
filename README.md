@@ -15,7 +15,7 @@ Make sure you have the following installed:
 
    ```bash
    git clone https://github.com/uitie/gomboc-casino-konstantin.git
-   cd gomboc-casino-backend
+   cd gomboc-casino-konstantin
    ```
 2. Install dependencies: 
    ```bash
